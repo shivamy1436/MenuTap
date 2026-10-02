@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MenuTap - Digital Menu</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<header>
+    <div class="logo">
+        🍽️ MenuTap
+        <span>Street Vendor Digital Menu</span>
+    </div>
+
+    <nav>
+        <button class="active" onclick="showCustomer()">Customer</button>
+        <button onclick="showVendor()">Vendor Dashboard</button>
+    </nav>
+</header>
+
+<!-- ================= CUSTOMER ================= -->
+
+<section id="customer">
+
+    <div class="hero">
+        <div>
+            <span class="open">● OPEN NOW</span>
+            <h1>Shivam's Street Food</h1>
+            <p>Scan • Order • Pay • Pick Up</p>
+        </div>
+
+        <div class="qr">
+            <div>▦</div>
+            <small>SCAN TO ORDER</small>
+        </div>
+    </div>
+
+    <div class="features">
+        <div>
+            <b>📱 Digital Menu</b>
+            <p>No handwritten menu</p>
+        </div>
+
+        <div>
+            <b>⚡ Quick Ordering</b>
+            <p>No waiting in queue</p>
+        </div>
+
+        <div>
+            <b>🍳 Kitchen Flow</b>
+            <p>Capacity-aware orders</p>
+        </div>
+    </div>
+
+    <div class="layout">
+
+        <div class="menu-section">
+
+            <div class="heading">
+                <div>
+                    <h2>Digital Menu</h2>
+                    <p>Choose your favourite food</p>
+                </div>
+
+                <select id="category" onchange="displayMenu()">
+                    <option value="All">All Items</option>
+                    <option value="Snacks">Snacks</option>
+                    <option value="Meals">Meals</option>
+                    <option value="Drinks">Drinks</option>
+                </select>
+            </div>
+
+            <div id="menu" class="menu-grid"></div>
+
+        </div>
+
+        <!-- CART -->
+
+        <div class="cart">
+
+            <div class="cart-header">
+                <h2>🛒 Your Cart</h2>
+                <span id="cartCount">0</span>
+            </div>
+
+            <div id="cartItems">
+                <p class="empty">Your cart is empty</p>
+            </div>
+
+            <div class="total">
+                <span>Total</span>
+                <b id="total">₹0</b>
+            </div>
+
+            <button class="checkout" onclick="checkout()">
+                Continue to Checkout
+            </button>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= VENDOR ================= -->
+
+<section id="vendor" class="hidden">
+
+    <div class="vendor-header">
+
+        <div>
+            <span class="vendor-tag">VENDOR DASHBOARD</span>
+            <h1>Shivam's Street Food</h1>
+            <p>Manage orders, menu and kitchen capacity</p>
+        </div>
+
+        <div class="subscription">
+            <small>MenuTap Subscription</small>
+            <b>₹299 / Month</b>
+            <span>Active Plan</span>
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <div class="stats">
+
+        <div class="stat">
+            <span>Today's Orders</span>
+            <b id="orderStat">0</b>
+            <small>Digital Orders</small>
+        </div>
+
+        <div class="stat">
+            <span>Today's Revenue</span>
+            <b id="revenueStat">₹0</b>
+            <small>From Orders</small>
+        </div>
+
+        <div class="stat">
+            <span>Kitchen Capacity</span>
+            <b id="capacityStat">0 / 10</b>
+            <small>Active Orders</small>
+        </div>
+
+        <div class="stat">
+            <span>Menu Items</span>
+            <b id="itemsStat">0</b>
+            <small>Available Items</small>
+        </div>
+
+    </div>
+
+
+    <div class="dashboard">
+
+        <!-- ORDERS -->
+
+        <div class="box">
+
+            <div class="box-heading">
+                <div>
+                    <h2>📦 Kitchen Orders</h2>
+                    <p>Manage customer orders</p>
+                </div>
+
+                <span class="live">● LIVE</span>
+            </div>
+
+            <div id="orders"></div>
+
+        </div>
+
+
+        <!-- MENU MANAGEMENT -->
+
+        <div class="box">
+
+            <div class="box-heading">
+
+                <div>
+                    <h2>📋 Menu Management</h2>
+                    <p>Manage item availability</p>
+                </div>
+
+            </div>
+
+            <div id="vendorMenu"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- OPERATING FLOW -->
+
+    <div class="flow-box">
+
+        <h2>MenuTap Operating Flow</h2>
+
+        <div class="flow">
+
+            <div>
+                <b>01</b>
+                <span>QR Scan</span>
+            </div>
+
+            <strong>→</strong>
+
+            <div>
+                <b>02</b>
+                <span>Digital Menu</span>
+            </div>
+
+            <strong>→</strong>
+
+            <div>
+                <b>03</b>
+                <span>Pre-Order</span>
+            </div>
+
+            <strong>→</strong>
+
+            <div>
+                <b>04</b>
+                <span>Kitchen</span>
+            </div>
+
+            <strong>→</strong>
+
+            <div>
+                <b>05</b>
+                <span>Pickup</span>
+            </div>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- ================= CHECKOUT ================= -->
+
+<div id="checkoutModal" class="modal hidden">
+
+    <div class="modal-box">
+
+        <button class="close" onclick="closeCheckout()">×</button>
+
+        <span class="tag">CHECKOUT</span>
+
+        <h2>Complete Your Order</h2>
+
+        <div id="summary"></div>
+
+        <label>Your Name</label>
+        <input id="customerName" placeholder="Enter your name">
+
+        <label>Payment Method</label>
+
+        <select id="payment">
+            <option>UPI</option>
+            <option>Cash on Pickup</option>
+            <option>Card</option>
+        </select>
+
+        <button class="checkout" onclick="placeOrder()">
+            Place Order
+        </button>
+
+    </div>
+
+</div>
+
+
+<!-- ================= SUCCESS ================= -->
+
+<div id="successModal" class="modal hidden">
+
+    <div class="modal-box success">
+
+        <div class="success-icon">✓</div>
+
+        <span class="success-tag">ORDER CONFIRMED</span>
+
+        <h2>Order Placed!</h2>
+
+        <p id="successMessage"></p>
+
+        <div class="timeline">
+
+            <div class="done">
+                <b>1</b>
+                Placed
+            </div>
+
+            <div>
+                <b>2</b>
+                Preparing
+            </div>
+
+            <div>
+                <b>3</b>
+                Ready
+            </div>
+
+            <div>
+                <b>4</b>
+                Pickup
+            </div>
+
+        </div>
+
+        <button class="checkout" onclick="closeSuccess()">
+            Go to Vendor Dashboard
+        </button>
+
+    </div>
+
+</div>
+
+
+<footer>
+    MenuTap © 2026 | Case Study 22 | Digital Transformation – Micro Business
+</footer>
+
+
+<script src="script.js"></script>
+
+</body>
+</html>
